@@ -1,0 +1,1810 @@
+/* ==========================================================================
+   ДИЗАЙН-СИСТЕМА И СТИЛИ: ПОРТФОЛИО ВЕБ-РАЗРАБОТЧИКА ДМИТРИЯ АЛЕКСЕЕНКО
+   Стандарты: Minimalist UI, Swiss Grid, High-End Visual Design
+   Шрифты: Unbounded, Onest, JetBrains Mono
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. ПЕРЕМЕННЫЕ И ДИЗАЙН-ТОКЕНЫ
+   -------------------------------------------------------------------------- */
+:root {
+  /* Палитра: Теплый бумажный минимализм */
+  --bg-primary: #F6F5F2;          /* Основной фон страницы */
+  --bg-surface: #ECEAE4;          /* Вторичный фон карточек */
+  --bg-surface-hover: #E3E0D8;    /* Фокус и наведение на карточки */
+  --border-subtle: #D8D5CD;       /* Четкие тонкие границы 1px */
+  --border-accent: #C2BFB6;       /* Выделенные границы */
+  
+  /* Текстовые цвета */
+  --text-primary: #141413;        /* Глубокий угольный цвет */
+  --text-secondary: #5C5B57;      /* Приглушенный графит */
+  --text-muted: #84827D;          /* Дополнительный приглушенный */
+  --text-inverse: #F6F5F2;        /* Текст на темном фоне */
+  
+  /* Акцентный цвет (Инженерный терракотово-оранжевый) */
+  --accent: #E04F26;
+  --accent-hover: #C63F19;
+  --accent-soft: rgba(224, 79, 38, 0.08);
+  --accent-border: rgba(224, 79, 38, 0.25);
+  
+  /* Контрастный блок подвала */
+  --dark-bg: #141413;
+  --dark-surface: #1E1E1C;
+  --dark-border: #2E2E2B;
+  
+  /* Типографические стеки */
+  --font-heading: 'Unbounded', system-ui, -apple-system, sans-serif;
+  --font-body: 'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Сетка и контейнеры */
+  --container-max-width: 1320px;
+  --container-padding: 32px;
+  --container-padding-mobile: 18px;
+  
+  /* Радиусы скругления: строгие, не пилюли */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  /* Переходы */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. БАЗОВЫЙ СБРОС И СИСТЕМНЫЕ СТИЛИ
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body, h1, h2, h3, h4, p, span, a, button {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   3. ТИПОГРАФИКА
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mono-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.lead-text {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 65ch;
+}
+
+/* --------------------------------------------------------------------------
+   4. КОМПОНЕНТЫ И КНОПКИ (CTA Generator Standards)
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-normal), transform var(--transition-fast), border-color var(--transition-fast);
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 48px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: #FFFFFF;
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-surface);
+  border-color: var(--border-accent);
+}
+
+.btn-dark {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  border: 1px solid var(--text-primary);
+}
+
+.btn-dark:hover {
+  background-color: #2A2A28;
+}
+
+.btn-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Интерактивные текстовые ссылки */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-accent);
+  padding-bottom: 2px;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.text-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   5. ВЕРСТКА СЛАЙД-СЕКЦИЙ (Swiss Grid 16:9 Architecture)
+   -------------------------------------------------------------------------- */
+.site-wrapper {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.slide-section {
+  width: 100%;
+  position: relative;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-primary);
+}
+
+.slide-header {
+  margin-bottom: 36px;
+}
+
+.slide-header .mono-tag {
+  margin-bottom: 12px;
+}
+
+.slide-header h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  max-width: 32ch;
+  margin-bottom: 14px;
+}
+
+.slide-header .section-subtitle {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  max-width: 68ch;
+  line-height: 1.55;
+}
+
+/* --------------------------------------------------------------------------
+   6. ПЛАВАЮЩИЙ ТУЛБАР УПРАВЛЕНИЯ (Режим презентации и экспорт)
+   -------------------------------------------------------------------------- */
+.presentation-bar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  background-color: rgba(20, 20, 19, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+  transition: transform var(--transition-normal);
+}
+
+.presentation-bar button {
+  color: #FFFFFF;
+  font-size: 0.8125rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background-color var(--transition-fast);
+}
+
+.presentation-bar button:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.presentation-bar .btn-print-cta {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+}
+
+.presentation-bar .btn-print-cta:hover {
+  background-color: var(--accent-hover);
+}
+
+/* --------------------------------------------------------------------------
+   7. ШАПКА САЙТА (Header)
+   -------------------------------------------------------------------------- */
+.site-header {
+  width: 100%;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-primary);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.brand-role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #2E7D32;
+  background-color: #E8F5E9;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #C8E6C9;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #2E7D32;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* --------------------------------------------------------------------------
+   8. СЛАЙД 1: HERO-СЕКЦИЯ (Главный экран)
+   -------------------------------------------------------------------------- */
+.hero-section {
+  padding-top: 60px;
+  padding-bottom: 70px;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 980px;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+}
+
+.hero-subtitle {
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  line-height: 1.58;
+  color: var(--text-secondary);
+  max-width: 780px;
+}
+
+.hero-cta-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.hero-microcopy {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-microcopy::before {
+  content: '→';
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Нижняя плашка фактов (3 колонки с разделителями) */
+.hero-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 56px;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.fact-item {
+  padding: 24px 26px;
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fact-item:last-child {
+  border-right: none;
+}
+
+.fact-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.fact-title {
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.fact-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   9. СЛАЙДЫ 2–3: ИЗБРАННЫЕ КЕЙСЫ (Customer Stories Standards)
+   -------------------------------------------------------------------------- */
+.cases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.case-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 5.2fr 6.8fr;
+  transition: border-color var(--transition-normal);
+}
+
+.case-card:hover {
+  border-color: var(--border-accent);
+}
+
+.case-info {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.case-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.case-title {
+  font-size: 1.375rem;
+  line-height: 1.25;
+}
+
+.case-problem-box {
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.case-problem-box strong {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.case-solutions-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.case-solutions-list li {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.48;
+}
+
+.case-solutions-list li::before {
+  content: '✓';
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Превью интерфейса кейса (Faux-OS Window Chrome) */
+.case-preview {
+  background-color: #E2DFD7;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.window-mockup {
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.window-topbar {
+  background-color: #F6F5F2;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.window-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.window-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--border-accent);
+}
+
+.window-url {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  background-color: #FFFFFF;
+  padding: 2px 16px;
+  border-radius: 3px;
+  border: 1px solid var(--border-subtle);
+}
+
+.mockup-inner {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mockup-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.mockup-headline {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.mockup-tagline {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.mockup-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mockup-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 4px 8px;
+  border-radius: 3px;
+  color: var(--text-primary);
+}
+
+/* Интерактивный мини-аккордеон программы курса в кейсе №2 */
+.case-modules-accordion {
+  margin-top: 10px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-color: #FFFFFF;
+}
+
+.case-module-item {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.case-module-item:last-child {
+  border-bottom: none;
+}
+
+.case-module-header {
+  width: 100%;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background-color: #FAF9F6;
+  transition: background-color var(--transition-fast);
+}
+
+.case-module-header:hover {
+  background-color: var(--bg-surface);
+}
+
+.case-module-header .module-num {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  margin-right: 6px;
+}
+
+.case-module-header .module-toggle {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.case-module-body {
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  display: none;
+  background-color: #FFFFFF;
+}
+
+.case-module-item.active .case-module-body {
+  display: block;
+}
+
+.case-module-item.active .case-module-header {
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+/* Дополнительная плашка: Не нашли свою сферу? */
+.other-niches-card {
+  background-color: var(--bg-primary);
+  border: 1px dashed var(--border-accent);
+  border-radius: var(--radius-md);
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.other-niches-info {
+  max-width: 720px;
+}
+
+.other-niches-info h3 {
+  font-size: 1.125rem;
+  margin-bottom: 6px;
+}
+
+.other-niches-info p {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   10. СЛАЙД 4: АНАТОМИЯ ПОДХОДА (Швейцарская 2-колоночная сетка)
+   -------------------------------------------------------------------------- */
+.approach-layout {
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.approach-sticky-left {
+  position: sticky;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.approach-sticky-left h2 {
+  font-size: clamp(1.75rem, 2.5vw, 2.375rem);
+  line-height: 1.15;
+}
+
+.approach-sticky-left p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.approach-theses-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.thesis-row {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 24px;
+}
+
+.thesis-num {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.thesis-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.thesis-title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.thesis-desc {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 62ch;
+}
+
+/* --------------------------------------------------------------------------
+   11. СЛАЙД 5: УСЛУГИ И ТАРИФЫ (Bento Grid Architecture)
+   -------------------------------------------------------------------------- */
+.services-bento-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.services-top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.service-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  transition: border-color var(--transition-normal);
+}
+
+.service-card:hover {
+  border-color: var(--border-accent);
+}
+
+.service-card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.service-head-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.service-title {
+  font-size: 1.3125rem;
+  line-height: 1.25;
+}
+
+.service-time-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background-color: #E2DFD7;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.service-audience {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.service-features-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.service-features-list li {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-features-list li::before {
+  content: '✓';
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Нижняя горизонтальная плашка редизайна */
+.redesign-banner {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.redesign-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 820px;
+}
+
+.redesign-info h3 {
+  font-size: 1.1875rem;
+  line-height: 1.3;
+}
+
+.redesign-info p {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   12. СЛАЙД 6: ПРОЦЕСС РАБОТЫ (5 Шагов / HowTo Generator)
+   -------------------------------------------------------------------------- */
+.process-timeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  overflow: hidden;
+}
+
+.process-step-item {
+  padding: 32px 24px;
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  position: relative;
+}
+
+.process-step-item:last-child {
+  border-right: none;
+}
+
+.step-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.step-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.step-title {
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.step-desc {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.step-duration {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  border-top: 1px dashed var(--border-subtle);
+  padding-top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   13. СЛАЙД 7: FAQ + КОНТРАСТНЫЙ ТЕМНЫЙ ПОДВАЛ (Footer Generator)
+   -------------------------------------------------------------------------- */
+.faq-section-wrapper {
+  margin-bottom: 56px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.faq-question-btn {
+  width: 100%;
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  transition: color var(--transition-fast);
+}
+
+.faq-question-btn:hover {
+  color: var(--accent);
+}
+
+.faq-indicator {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  transition: transform var(--transition-normal), color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.faq-item.active .faq-indicator {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+
+.faq-answer-pane {
+  padding-bottom: 24px;
+  display: none;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 74ch;
+}
+
+.faq-item.active .faq-answer-pane {
+  display: block;
+}
+
+/* Финальный блок захвата (Контрастный графитовый #141413) */
+.dark-footer-card {
+  background-color: var(--dark-bg);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-md);
+  padding: 48px;
+  color: var(--text-inverse);
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.dark-footer-content {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.dark-footer-text h3 {
+  color: #FFFFFF;
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.dark-footer-text p {
+  color: #9C9A94;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 58ch;
+}
+
+.dark-footer-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.dark-footer-action .hero-microcopy {
+  color: #9C9A94;
+}
+
+.dark-footer-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--dark-border);
+}
+
+.dark-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #84827D;
+}
+
+.footer-contacts-list {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-contacts-list a:hover {
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   14. МОДАЛЬНОЕ ОКНО ЖИВОГО ДЕМО КЕЙСОВ
+   -------------------------------------------------------------------------- */
+.demo-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background-color: rgba(20, 20, 19, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.demo-modal-overlay.active {
+  display: flex;
+}
+
+.demo-modal-container {
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.demo-modal-header {
+  padding: 16px 20px;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.demo-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.demo-modal-close-btn {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  padding: 4px 8px;
+  line-height: 1;
+  color: var(--text-secondary);
+}
+
+.demo-modal-close-btn:hover {
+  color: var(--text-primary);
+}
+
+.demo-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.demo-packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.demo-packages-grid.demo-two-col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* --------------------------------------------------------------------------
+   15. РЕЖИМ ПРЕЗЕНТАЦИИ И ПЕЧАТЬ В PDF (@media print 16:9 Architecture)
+   -------------------------------------------------------------------------- */
+@media print {
+  @page {
+    size: 16in 9in; /* Альбомный формат 16:9 */
+    margin: 0;
+  }
+  
+  html, body {
+    background-color: #F6F5F2 !important;
+    color: #141413 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-size: 15px;
+  }
+  
+  .no-print,
+  .presentation-bar,
+  .demo-modal-overlay {
+    display: none !important;
+  }
+  
+  .site-header {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #D8D5CD !important;
+  }
+  
+  .slide-section {
+    min-height: 100vh !important;
+    height: 100vh !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 36px 54px !important;
+    border-bottom: none !important;
+    box-sizing: border-box !important;
+  }
+  
+  .hero-facts-grid,
+  .process-timeline,
+  .case-card,
+  .service-card,
+  .dark-footer-card {
+    box-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  /* Принудительное открытие ответов в PDF */
+  .faq-answer-pane {
+    display: block !important;
+  }
+  .case-module-body {
+    display: block !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   16. АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ И СМАРТФОНОВ (Mobile-First UX)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero-facts-grid {
+    grid-template-columns: 1fr;
+    border-right: 1px solid var(--border-subtle);
+  }
+  
+  .fact-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  
+  .fact-item:last-child {
+    border-bottom: none;
+  }
+  
+  .case-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .case-info {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  
+  .approach-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .approach-sticky-left {
+    position: static;
+  }
+  
+  .process-timeline {
+    grid-template-columns: 1fr;
+  }
+  
+  .process-step-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  
+  .process-step-item:last-child {
+    border-bottom: none;
+  }
+  
+  .services-top-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .dark-footer-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --container-padding: var(--container-padding-mobile);
+  }
+  
+  .slide-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .thesis-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .other-niches-card,
+  .redesign-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .case-info,
+  .service-card,
+  .dark-footer-card {
+    padding: 24px;
+  }
+  
+  /* На смартфонах скрываем десктопную панель презентации, чтобы она не перекрывала WhatsApp */
+  .presentation-bar {
+    display: none !important;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   17. ИНТЕРАКТИВНЫЙ РЕЖИМ ПРЕЗЕНТАЦИИ (Экранный режим 16:9)
+   -------------------------------------------------------------------------- */
+body.slides-view-mode {
+  scroll-snap-type: y mandatory;
+}
+
+body.slides-view-mode .slide-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* --------------------------------------------------------------------------
+   18. ОТЗЫВЫ И ПОДТВЕРЖДЕННЫЕ МЕТРИКИ КЛИЕНТОВ (Testimonials Generator)
+   -------------------------------------------------------------------------- */
+.case-testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 12px;
+}
+
+.testimonial-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+}
+
+.testimonial-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.testimonial-metric {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.testimonial-quote {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 12px;
+}
+
+.author-name {
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.author-role {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   19. ГАРАНТИИ И БЕЗОПАСНОСТЬ СДЕЛКИ (Trust Badges Generator)
+   -------------------------------------------------------------------------- */
+.guarantees-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.guarantee-item {
+  padding: 20px 22px;
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.guarantee-item:last-child {
+  border-right: none;
+}
+
+.guarantee-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.guarantee-text {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.guarantee-text strong {
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   20. ИНТЕРАКТИВНЫЙ ЭКСПРЕСС-КАЛЬКУЛЯТОР (Conversion Optimization)
+   -------------------------------------------------------------------------- */
+.estimator-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  margin-top: 8px;
+}
+
+.estimator-header h3 {
+  font-size: 1.375rem;
+  line-height: 1.25;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.estimator-header p {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+.estimator-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.estimator-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.estimator-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.selector-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.selector-pills .pill {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.selector-pills .pill:hover {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-primary);
+}
+
+.selector-pills .pill.active {
+  background-color: var(--dark-bg);
+  color: #FFFFFF;
+  border-color: var(--dark-bg);
+  font-weight: 600;
+}
+
+.estimator-result-box {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.result-estimate-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.result-values {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.result-price {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.result-divider {
+  color: var(--border-accent);
+}
+
+.result-days {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   21. ЛИПКАЯ МОБИЛЬНАЯ ПАНЕЛЬ СВЯЗИ И TOAST-УВЕДОМЛЕНИЯ
+   -------------------------------------------------------------------------- */
+.sticky-mobile-cta {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .case-testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .guarantees-bar {
+    grid-template-columns: 1fr;
+  }
+  
+  .guarantee-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  
+  .guarantee-item:last-child {
+    border-bottom: none;
+  }
+
+  .estimator-card {
+    padding: 20px 16px;
+  }
+
+  /* Увеличение тач-зон фильтров калькулятора на смартфонах */
+  .selector-pills .pill {
+    width: 100%;
+    text-align: center;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .estimator-result-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 16px;
+  }
+
+  .estimator-result-box .btn {
+    width: 100%;
+  }
+
+  /* Оптимизация отступов превью кейсов для узких экранов */
+  .case-preview {
+    padding: 16px 12px;
+  }
+
+  .mockup-inner {
+    padding: 16px 14px;
+  }
+
+  /* Адаптивная одноколоночная сетка для модальных окон демо */
+  .demo-packages-grid,
+  .demo-packages-grid.demo-two-col {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .demo-modal-overlay {
+    padding: 12px;
+  }
+
+  .demo-modal-container {
+    max-height: 94vh;
+  }
+
+  .demo-modal-body {
+    padding: 16px;
+  }
+
+  /* Отключение фиксации слайдов на смартфонах (вертикальный скролл) */
+  body.slides-view-mode {
+    scroll-snap-type: none;
+  }
+
+  body.slides-view-mode .slide-section {
+    min-height: auto;
+    scroll-snap-align: none;
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  /* Липкая мобильная кнопка с защитой Safe Area под iPhone (челка/полоса жестов) */
+  .sticky-mobile-cta {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    background-color: rgba(246, 245, 242, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border-subtle);
+    padding: 12px 18px calc(12px + env(safe-area-inset-bottom, 0px)) 18px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .sticky-cta-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .sticky-mobile-cta .btn {
+    width: auto;
+    padding: 10px 18px;
+    font-size: 0.875rem;
+    min-height: 44px;
+  }
+
+  body {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); /* Безопасный зазор под плашку */
+  }
+}
+
+/* Toast сообщение */
+.toast-message {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  z-index: 3000;
+  background-color: var(--dark-bg);
+  color: #FFFFFF;
+  border: 1px solid var(--dark-border);
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toast-message.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+
